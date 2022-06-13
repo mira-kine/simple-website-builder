@@ -1,23 +1,29 @@
-import logo from './logo.svg';
-import './App.css';
+import React from 'react';
+import { useState, useEffect } from 'react';
+import 'grapesjs/dist/css/grapes.min.css';
+import grapesjs from 'grapesjs';
+import gjsPresetWebpage from 'grapesjs-preset-webpage';
+
 
 function App() {
+  const [editor, setEditor] = useState(null);
+
+   // useEffect to build the editor with grapesJS
+  useEffect(() => {
+    const editor = grapesjs.init({
+      container: '#editor',
+      plugins: [gjsPresetWebpage],
+      pluginsOpts: {
+        gjsPresetWebpage: {}
+      }
+    });
+    setEditor(editor);
+  }, []);
+  // Indicate where to init editor
+
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <div id="editor"></div>
     </div>
   );
 }
